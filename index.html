@@ -1,0 +1,73 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Box Generator</title>
+    <script type="text/javascript" src=""></script>
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+    <div class="title">
+        <p id="pageTitle">Box Generator</p>
+    </div>
+
+    <div class="controls">
+        <label for="inputHeight">Height:</label>
+        <input type="number" id="inputHeight" name="inputHeight">
+        <label for="inputWidth">Width:</label>
+        <input type="number" id="inputWidth" name="inputWidth">
+        <label for="inputColor">Color:</label>
+        <input type="color" id="inputColor" name="inputColor">
+        <button onclick="return validateForm();">Submit</button>
+    </div>
+
+    <div class="panel" id="panel">
+        <div class="innerBox" id="innerBox"></div>
+    </div>
+
+
+    <div class="signature">
+        <p id="signature">This program was made by Alex Chalita. The inputs are set in pixels. </p>
+    </div>
+
+    <script>
+        function validateForm(){
+            var inputHeight = document.getElementById("inputHeight").value;
+            var inputWidth = document.getElementById("inputWidth").value;
+            var inputColor = document.getElementById("inputColor").value;
+            var inputArray = new Array(inputHeight, inputWidth, inputColor);
+
+            const panel = document.getElementById("panel");
+            const stylePanel = getComputedStyle(panel);
+            const panelHeight = parseInt(stylePanel.height, 10);
+            const panelWidth = parseInt(stylePanel.width, 10);
+
+            var i;
+            for (i = 0; i < inputArray.length; i++){
+                if (inputArray[i] == ""){
+                    alert("Make sure height, width and color are picked.");
+                    return false;
+                }
+
+                var adjustedPanelHeight = panelHeight - 25;
+                var adjustedPanelWidth = panelWidth - 20;
+
+                if (inputHeight > adjustedPanelHeight){
+                    alert("Make sure height does not exceed " + adjustedPanelHeight + "px");
+                    return false;
+                }
+
+                if (inputWidth > adjustedPanelWidth){
+                    alert("Make sure width does not exceed " + adjustedPanelWidth + "px");
+                    return false;
+                }
+
+            }
+
+            document.getElementById("innerBox").style.height = inputHeight + "px";
+            document.getElementById("innerBox").style.width = inputWidth + "px";
+            document.getElementById("innerBox").style.background = inputColor;
+        }
+
+    </script>
+</body>
+</html>
